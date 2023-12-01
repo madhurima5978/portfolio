@@ -144,9 +144,9 @@ function animate() {
 
     //Around-sun-rotation
     
-    //earth.obj.rotateY(0.01);
+    earth.obj.rotateY(0.01);
     
-    //jupiter.obj.rotateY(0.002);
+    jupiter.obj.rotateY(0.002);
 
     renderer.render(scene, camera);
 }
