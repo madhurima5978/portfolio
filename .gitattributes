@@ -1,0 +1,2 @@
+assets/MR_INT-001_NaturalStudio_NAD.hdr filter=lfs diff=lfs merge=lfs -text
+assets/kloofendal_28d_misty_puresky_8k.hdr filter=lfs diff=lfs merge=lfs -text
