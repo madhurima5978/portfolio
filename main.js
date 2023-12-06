@@ -1,271 +1,176 @@
-/*import './style.css';
-import * as THREE from 'three';
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
-import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
-import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass';
-import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer';
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth/ window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({
-  canvas: document.querySelector('#bg'), 
-});
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.setZ(30);
-renderer.render(scene, camera);
+  import './style.css';
+  import * as THREE from 'three';
+  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+  import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
+  import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+  import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+  import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
+  import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+  import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 
-
-const renderScene = new RenderPass(scene,camera);
-const composer = new EffectComposer(renderer);
-composer.addPass(renderScene);
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100)
-//const material = new THREE.MeshStandardMaterial( {color: 0xFF6347});
-const material = new THREE.MeshNormalMaterial( {color: 0xFF6347});
-const torus = new THREE.Mesh(geometry, material);
-scene.add(torus)
-
-const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(5, 5, 5);
-const ambientLight = new THREE.AmbientLight(0xffffff);
-scene.add(pointLight, ambientLight);
-const lightHelper = new THREE.PointLightHelper(pointLight)
-const gridHelper = new THREE.GridHelper(200, 50);
-scene.add(lightHelper, gridHelper)
-
-const controls = new OrbitControls(camera, renderer.domElement);
-
-function addStar(){
-  const geometry = new THREE.SphereGeometry(0.25, 24, 24);
-  const material = new THREE.MeshStandardMaterial({color: 0xffffff})
-  const star = new THREE.Mesh(geometry, material);
-
-  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
-  star.position.set(x, y, z);
-  scene.add(star)
-}
-Array(200).fill().forEach(addStar)
-
-const spaceTexture = new THREE.TextureLoader().load('space.jpg');
-scene.background = spaceTexture;
-
-function animate(){
-  requestAnimationFrame(animate);
-  torus.rotation.x+=0.01;
-  torus.rotation.y+=0.005;
-  torus.rotation.z+=0.01;
-  controls.update();
-  renderer.render(scene, camera);
-}
-animate()
-*/
-import * as THREE from 'three';
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
-
-import starsTexture from './img/stars.jpg';
-import sunTexture from './img/sun.jpg';
-
-
-import earthTexture from './img/earth.jpg';
-
-import jupiterTexture from './img/jupiter.jpg';
-
-const renderer = new THREE.WebGLRenderer();
-
-renderer.setSize(window.innerWidth, window.innerHeight);
-
-document.body.appendChild(renderer.domElement);
-
-const scene = new THREE.Scene();
-
-const camera = new THREE.PerspectiveCamera(
-    45,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-);
-
-const orbit = new OrbitControls(camera, renderer.domElement);
-
-camera.position.set(-90, 140, 140);
-orbit.update();
-
-const ambientLight = new THREE.AmbientLight(0x333333);
-scene.add(ambientLight);
-
-const cubeTextureLoader = new THREE.CubeTextureLoader();
-scene.background = cubeTextureLoader.load([
-    starsTexture,
-    starsTexture,
-    starsTexture,
-    starsTexture,
-    starsTexture,
-    starsTexture
-]);
-
-const textureLoader = new THREE.TextureLoader();
-
-const sunGeo = new THREE.SphereGeometry(16, 30, 30);
-const sunMat = new THREE.MeshBasicMaterial({
-    map: textureLoader.load(sunTexture)
-});
-const sun = new THREE.Mesh(sunGeo, sunMat);
-scene.add(sun);
-
-function createPlanete(size, texture, position, ring) {
-    const geo = new THREE.SphereGeometry(size, 30, 30);
-    const mat = new THREE.MeshStandardMaterial({
-        map: textureLoader.load(texture)
+  // The rest of your code remains unchanged
+  
+    // The rest of your code remains unchanged
+    const mouse = new THREE.Vector2();
+    const hdrTextureURL = new URL('assets/kloofendal_28d_misty_puresky_8k.hdr', import.meta.url);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({
+      canvas: document.querySelector('#bg'),
     });
-    const mesh = new THREE.Mesh(geo, mat);
-    const obj = new THREE.Object3D();
-    obj.add(mesh);
-    scene.add(obj);
-    mesh.position.x = position;
-    return {mesh, obj}
-}
-
-
-const earth = createPlanete(6, earthTexture, 62);
-const jupiter = createPlanete(12, jupiterTexture, 100);
-
-
-var pointLight = new THREE.PointLight(0xFFFFFF, 1000, 250, 1.5);
-scene.add(pointLight);
-
-function animate() {
-    //Self-rotation
-    sun.rotateY(0.004);
-    
-    
-    earth.mesh.rotateY(0.02);
-    
-    jupiter.mesh.rotateY(0.04);
-    
-
-    //Around-sun-rotation
-    
-    earth.obj.rotateY(0.01);
-    
-    jupiter.obj.rotateY(0.002);
-
+  
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.position.setZ(300);
     renderer.render(scene, camera);
-}
+  
+    const realLoader = new RGBELoader();
+    realLoader.load(hdrTextureURL, function (texture) {
+      texture.mapping = THREE.EquirectangularReflectionMapping;
+      scene.background = texture;
+      scene.environment = texture;
+      const sphere = new THREE.Mesh(
+        new THREE.SphereGeometry(1, 50, 50),
+        new THREE.MeshStandardMaterial({
+          roughness: 0,
+          metalness: 0.5,
+        })
+      );
+      sphere.scale.set(70,70,70);
+      sphere.position.z=10;
+      scene.add(sphere);
+    });
+  
+    // Create an instance of DRACOLoader
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+   // Set the path to your Draco decoder
+  
+    // Pass DRACOLoader instance to GLTFLoader
+    const loader = new GLTFLoader();
+    loader.setDRACOLoader(dracoLoader);
+  
+    const renderScene = new RenderPass(scene, camera);
+    const composer = new EffectComposer(renderer);
+    composer.addPass(renderScene);
+    const mixers = [];
+  
+    function loadModel(modelPath) {
+      loader.load(modelPath, function (gltf) {
+        const model = gltf.scene;
+        model.scale.set(0.1, 0.1, 0.1);
+        model.position.set(-20,20,5);
+        scene.add(model);
+  
+        const animations = gltf.animations;
+  
+        if (animations && animations.length) {
+          const mixer = new THREE.AnimationMixer(model);
+          const defaultAnimation = mixer.clipAction(animations[0]);
+          defaultAnimation.play();
+          mixers.push(mixer);
+        }
+      }, undefined, function (error) {
+        console.error(error);
+      });
+    }
+  
+    const modelsToLoad = ['assets/Stork.glb', 'assets/IridescentDishWithOlives.glb'];
+  
+    modelsToLoad.forEach((modelPath) => {
+      loadModel(modelPath);
+    });
+    const ilandLoader = new GLTFLoader();
+    ilandLoader.setDRACOLoader(dracoLoader); 
+    ilandLoader.load('assets/3d/island.glb',function(gltf){
+      const ilandmodel = gltf.scene;
+      ilandmodel.scale.set(1,1,1);
+      ilandmodel.position.z = -20;
+      ilandmodel.rotation.y += 0.005; // Adjust the rotation speed as needed
+      scene.add(ilandmodel);
+    });
+    
+    
 
-renderer.setAnimationLoop(animate);
+    const pointLight = new THREE.PointLight(0xffffff);
+    pointLight.position.set(5, 5, 5);
+    const ambientLight = new THREE.AmbientLight(0xffffff);
+    scene.add(pointLight, ambientLight);
+    const lightHelper = new THREE.PointLightHelper(pointLight);
+    scene.add(lightHelper);
+  
+    const controls = new OrbitControls(camera, renderer.domElement);
+    const main = document.getElementById('main');
+    document.addEventListener('scroll', () => {
+      moveCamera();
+    });
+    controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+    controls.dampingFactor = 0.25; // adjusts how quickly the controls slow down after a user stops interacting
+    
+    function moveCamera(){
+      const t = document.body.getBoundingClientRect().top;
+      
+      mixers.forEach((mixer) => {
+        mixer.rotation+=0.2;
 
-window.addEventListener('resize', function() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
+        const opacity = Math.max(0, 1 - t / window.innerHeight);
+  scene.traverse((obj) => {
+    if (obj.isMesh) {
+      obj.material.opacity = opacity;
+      obj.material.transparent = true;
+    }
+  });
+      });
 
-/*import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+      camera.position.z = t * -0.1;
+      camera.rotation.y = t * -0.0002;
+      camera.position.x = t * -0.0002;
 
-import starsTexture from './img/stars.jpg';
-import sunTexture from './img/sun.jpg';
-import earthTexture from './img/earth.jpg';
-import jupiterTexture from './img/jupiter.jpg';
+    const targetRotation = new THREE.Vector3(mouse.y, mouse.x, 0);
+    camera.rotation.reorder('YXZ');
+    camera.rotation.x = targetRotation.x * 5;
+    camera.rotation.y = targetRotation.y * 5;
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+    controls.update();
 
-const scene = new THREE.Scene();
+  // Adjust the position or visibility of the new HTML content
+      const newContentOpacity = Math.max(0, 1 - t / window.innerHeight);
+      newContent.style.opacity = newContentOpacity;
+      newContent.style.transform = `translateY(${t}px)`;
+    }  
 
-const camera = new THREE.PerspectiveCamera(
-    45,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-);
 
-const orbit = new OrbitControls(camera, renderer.domElement);
-camera.position.set(-90, 140, 140);
-orbit.update();
+    document.addEventListener('DOMContentLoaded', function () {
+      const newContent = document.getElementById('newContent');
+    
+      document.addEventListener('scroll', () => {
 
-const cubeTextureLoader = new THREE.CubeTextureLoader();
-scene.background = cubeTextureLoader.load([
-    starsTexture,
-    starsTexture,
-    starsTexture,
-    starsTexture,
-    starsTexture,
-    starsTexture,
-]);
+        // Fade out and move scene
+        scene.style.opacity = Math.max(0, 1 - scrollY/500);
+        scene.style.transform = `translateY(${scrollY}px)`;
+      
+        // Fade in new content
+        newContent.style.opacity = Math.max(0, (scrollY - 500) / 500);
+      
+      });
+      
+    });
+    
+    
 
-const textureLoader = new THREE.TextureLoader();
-
-const sunGeo = new THREE.SphereGeometry(16, 30, 30);
-const sunMat = new THREE.MeshBasicMaterial({
-    map: textureLoader.load(sunTexture),
-});
-const sun = new THREE.Mesh(sunGeo, sunMat);
-scene.add(sun);
-
-function createPlanete(size, material, position) {
-    const geo = new THREE.SphereGeometry(size, 30, 30);
-    const mesh = new THREE.Mesh(geo, material);
-    const obj = new THREE.Object3D();
-    obj.add(mesh);
-    scene.add(obj);
-    mesh.position.x = position;
-    return { mesh, obj };
-}
-textureLoader.load(earthTexture, (texture) => {
-  console.log('Earth texture loaded successfully:', texture);
-}, undefined, (error) => {
-  console.error('Error loading Earth texture:', error);
-});
-const earthMat = new THREE.MeshStandardMaterial({
-    map: textureLoader.load(earthTexture),
-    emissiveMap: textureLoader.load(earthTexture),
-    emissive: new THREE.Color(0x00ff00),
-    emissiveIntensity: 0.2,
-});
-
-const jupiterMat = new THREE.MeshStandardMaterial({
-    map: textureLoader.load(jupiterTexture),
-    emissiveMap: textureLoader.load(jupiterTexture),
-    emissive: new THREE.Color(0xff9900),
-    emissiveIntensity: 0.7,
-});
-
-const earth = createPlanete(6, earthMat, 62);
-const jupiter = createPlanete(12, jupiterMat, 100);
-
-const pointLight = new THREE.PointLight(0xFFFFFF, 2, 300);
-scene.add(pointLight);
-
-const ambientLight = new THREE.AmbientLight(0x333333);
-scene.add(ambientLight);
-
-const composer = new EffectComposer(renderer);
-
-const renderPass = new RenderPass(scene, camera);
-composer.addPass(renderPass);
-
-const bloomPass = new UnrealBloomPass();
-composer.addPass(bloomPass);
-
-function animate() {
-    sun.rotateY(0.004);
-    earth.mesh.rotateY(0.02);
-    jupiter.mesh.rotateY(0.04);
-    earth.obj.rotateY(0.01);
-    jupiter.obj.rotateY(0.002);
-    composer.render();
-}
-
-renderer.setAnimationLoop(animate);
-
-window.addEventListener('resize', function () {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-*/
+    function animate() {
+      requestAnimationFrame(animate);
+      mixers.forEach((mixer) => {
+        mixer.update(0.01);
+      });
+      
+      renderer.render(scene, camera);
+      controls.update();
+      composer.render();
+      
+    }
+  
+    animate();
+  
+  
