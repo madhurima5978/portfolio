@@ -76,7 +76,7 @@
       });
     }
   
-    const modelsToLoad = ['assets/Stork.glb', 'assets/IridescentDishWithOlives.glb'];
+    const modelsToLoad = ['assets/3d/Stork.glb', 'assets/3d/IridescentDishWithOlives.glb'];
   
     modelsToLoad.forEach((modelPath) => {
       loadModel(modelPath);
@@ -139,7 +139,6 @@
       newContent.style.opacity = newContentOpacity;
       newContent.style.transform = `translateY(${t}px)`;
     }  
-
 
     document.addEventListener('DOMContentLoaded', function () {
       const newContent = document.getElementById('newContent');
