@@ -76,14 +76,14 @@
       });
     }
   
-    const modelsToLoad = ['assets/3d/Stork.glb', 'assets/3d/IridescentDishWithOlives.glb'];
+    const modelsToLoad = ['portfolio/assets/3d/Stork.glb', 'portfolio/assets/3d/IridescentDishWithOlives.glb'];
   
     modelsToLoad.forEach((modelPath) => {
       loadModel(modelPath);
     });
     const ilandLoader = new GLTFLoader();
     ilandLoader.setDRACOLoader(dracoLoader); 
-    ilandLoader.load('assets/3d/island.glb',function(gltf){
+    ilandLoader.load('portfolio/assets/3d/island.glb?v=123',function(gltf){
       const ilandmodel = gltf.scene;
       ilandmodel.scale.set(1,1,1);
       ilandmodel.position.z = -20;
