@@ -77,7 +77,13 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
   }
 
   const modelsToLoad = ['assets/Stork.glb', 'assets/IridescentDishWithOlives.glb'];
-
+  modelsToLoad.forEach((modelPath) => {
+    const fullModelPath = new URL(modelPath, import.meta.url).toString();
+    console.log('Loading model:', fullModelPath);
+  
+    loadModel(modelPath);
+  });
+  
   modelsToLoad.forEach((modelPath) => {
     loadModel(modelPath);
   });
