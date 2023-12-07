@@ -13,9 +13,8 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-.newContent{
-  position: absolute;
-  z-index: 99;
+a{
+  text-decoration: none;
 }
 #scene{
   position: relative;
@@ -99,7 +98,7 @@ canvas{
   z-index: 1;
 }
 main {
-  z-index: 99;
+  z-index: 999;
   opacity: 1;
   
   z-index: 99;
@@ -107,30 +106,93 @@ main {
   width: 100%;
   margin: 0px auto;
   padding: 120px 0px;
-  
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-}
-.newContent{
-  position: absolute;
-  z-index: 999;
-  text-align: center;
-  width: 100%;
-  height: 300px;
-  top: 0;
-
-  background-color: #ffffc6;
-
 }
 .content{
   position: absolute;
   z-index: 999;
   width: 100%;
-  height: 2000px;
+  height: 3500px;
   top: 2500px;
   text-align: center;
-  background-color: #535bf2;
+  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);;
+  color: #ffffff;
 }
+.newContent{
+  background-color: #ffffc7;
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  z-index: 999;
+  text-align: center;
+  left: 0;
+  top: 0;
+  padding: 50px;
+}
+.card{
+  color: black;
+  background-color: #ffffff24;
+}
+.card-body ul{
+  list-style-type: none;
+  position: relative;
+  max-width: 800px;
+  text-align: center;
+  text-decoration: none;
+  margin: auto;
+  width: 50%;
+}
+.card-body ul li{
+  display: flex;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 0.5s;
+  overflow: hidden;
+  background:  rgba(255, 255, 255, 0.634);
+  text-decoration: none;
+}
+.card-body ul:hover li{
+  filter: blur(5px);
+  opacity: 0.5;
+  
+}
+a:hover {
+  text-decoration: none;
+}
+.card-body ul li:hover{
+  filter: blur(0px);
+  opacity: 1;
+  transform: scale(1.05);
+}
+.ed {
+  background-color: rgba(255, 249, 249, 0.582);
+  display: flex;
+  flex-direction: column; /* Change to column to stack items vertically */
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px 10px;
+  cursor: pointer;
+  transition: 0.5s;
+  overflow: hidden;
+  background:  rgba(255, 255, 255, 0.634);
+  min-height: 150px;
+  margin: auto;
+  width: 50%;
+  margin-bottom: 20px;
+  transition: 0.5s;
+}
+.ed:hover{
+  transform: scale(1.1);
+}
+.card-title,
+.card-text,
+.marks {
+  margin: 5px 0; /* Add margin between the lines */
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

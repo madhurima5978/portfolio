@@ -145,18 +145,13 @@ scene.traverse((obj) => {
     newContent.style.opacity = newContentOpacity;
     newContent.style.transform = `translateY(${t}px)`;
   }  
-
+  const newContent = document.getElementById('newContent');
   document.addEventListener('DOMContentLoaded', function () {
-    const newContent = document.getElementById('newContent');
+    
   
     document.addEventListener('scroll', () => {
 
-      // Fade out and move scene
-      scene.style.opacity = Math.max(0, 1 - scrollY/500);
       scene.style.transform = `translateY(${scrollY}px)`;
-    
-      // Fade in new content
-      newContent.style.opacity = Math.max(0, (scrollY - 500) / 500);
     
     });
     
