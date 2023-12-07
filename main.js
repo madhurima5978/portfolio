@@ -76,7 +76,7 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
     });
   }
 
-  const modelsToLoad = ['assets/3d/Stork.glb', 'assets/3d/IridescentDishWithOlives.glb'];
+  const modelsToLoad = ['assets/Stork.glb', 'assets/IridescentDishWithOlives.glb'];
 
   modelsToLoad.forEach((modelPath) => {
     loadModel(modelPath);
