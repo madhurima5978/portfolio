@@ -76,8 +76,7 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
     });
   }
 
-  const modelsToLoad = ['https://madhurima5978.github.io/portfolio/assets/Stork.glb?v=123', 'https://madhurima5978.github.io/portfolio/assets/IridescentDishWithOlives.glb?v=123
-  '];
+  const modelsToLoad = ['https://madhurima5978.github.io/portfolio/assets/Stork.glb?v=123', 'https://madhurima5978.github.io/portfolio/assets/IridescentDishWithOlives.glb?v=123'];
   modelsToLoad.forEach((modelPath) => {
     const fullModelPath = new URL(modelPath, import.meta.url).toString();
     console.log('Loading model:', fullModelPath);
