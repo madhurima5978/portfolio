@@ -76,7 +76,8 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
     });
   }
 
-  const modelsToLoad = ['assets/Stork.glb', 'assets/IridescentDishWithOlives.glb'];
+  const modelsToLoad = ['https://madhurima5978.github.io/portfolio/assets/Stork.glb?v=123', 'https://madhurima5978.github.io/portfolio/assets/IridescentDishWithOlives.glb?v=123
+  '];
   modelsToLoad.forEach((modelPath) => {
     const fullModelPath = new URL(modelPath, import.meta.url).toString();
     console.log('Loading model:', fullModelPath);
@@ -89,7 +90,7 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
   });
   const ilandLoader = new GLTFLoader();
   ilandLoader.setDRACOLoader(dracoLoader); 
-  ilandLoader.load('assets/3d/island.glb?v=123',function(gltf){
+  ilandLoader.load('https://madhurima5978.github.io/portfolio/assets/3d/island.glb?v=123',function(gltf){
     const ilandmodel = gltf.scene;
     ilandmodel.scale.set(1,1,1);
     ilandmodel.position.z = -20;
