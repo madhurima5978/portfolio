@@ -122,20 +122,19 @@ ilandLoader.load('http://myportfoliobucket2843.s3-website.eu-north-1.amazonaws.c
     scene.add(ilandmodel);
 });
 
-pointLight.intensity = 20;  // Increase light intensity
-directionalLight.intensity = 10;
-ambientLight.intensity = 5;
-
-
 const pointLight = new THREE.PointLight(0xffffff, 5);
 pointLight.position.set(50, 50, 50);
+pointLight.intensity = 20;  // ✅ Corrected placement
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 2);
+ambientLight.intensity = 5;  // ✅ Corrected placement
 scene.add(pointLight, ambientLight);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
 directionalLight.position.set(10, 20, 10);
+directionalLight.intensity = 10;  // ✅ Corrected placement
 scene.add(directionalLight);
+
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
