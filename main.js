@@ -10,7 +10,7 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 
 const mouse = new THREE.Vector2();
-const hdrTextureURL = new URL('./assets/kloofendal_28d_misty_puresky_8k.hdr', import.meta.url);
+const hdrTextureURL = new URL('/assets/kloofendal_28d_misty_puresky_8k.hdr', import.meta.url);
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({
@@ -97,10 +97,7 @@ function loadModel(modelPath) {
     });
 }
 
-const modelsToLoad = [
-    'http://myportfoliobucket2843.s3-website.eu-north-1.amazonaws.com/assets/Stork.glb',
-    'http://myportfoliobucket2843.s3-website.eu-north-1.amazonaws.com/assets/IridescentDishWithOlives.glb'
-];
+const modelsToLoad = ['/assets/Stork.glb', '/assets/IridescentDishWithOlives.glb'];
 modelsToLoad.forEach((modelPath) => {
     console.log('Loading model:', modelPath);
     loadModel(modelPath);
@@ -108,7 +105,7 @@ modelsToLoad.forEach((modelPath) => {
 
 const ilandLoader = new GLTFLoader();
 ilandLoader.setDRACOLoader(dracoLoader);
-ilandLoader.load('http://myportfoliobucket2843.s3-website.eu-north-1.amazonaws.com/assets/3d/island.glb', function (gltf) {
+ilandLoader.load('/assets/3d/island.glb?v=123', function (gltf) {
     const ilandmodel = gltf.scene;
     if (!ilandmodel) {
         console.error('Failed to load island model.');
