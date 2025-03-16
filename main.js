@@ -124,15 +124,15 @@ ilandLoader.load('http://myportfoliobucket2843.s3-website.eu-north-1.amazonaws.c
 
 const pointLight = new THREE.PointLight(0xffffff, 5);
 pointLight.position.set(50, 50, 50);
-pointLight.intensity = 20;  // ✅ Corrected placement
+pointLight.intensity = 2;  // ✅ Corrected placement
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 2);
-ambientLight.intensity = 5;  // ✅ Corrected placement
+ambientLight.intensity = 1;  // ✅ Corrected placement
 scene.add(pointLight, ambientLight);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
 directionalLight.position.set(10, 20, 10);
-directionalLight.intensity = 10;  // ✅ Corrected placement
+directionalLight.intensity = 0.5;  // ✅ Corrected placement
 scene.add(directionalLight);
 
 
