@@ -22,7 +22,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(300);
 
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 2;
+renderer.toneMappingExposure = 3;
 
 renderer.render(scene, camera);
 
@@ -37,7 +37,7 @@ realLoader.load(hdrTextureURL, function (texture) {
         new THREE.MeshStandardMaterial({
             roughness: 0.2,
             metalness: 0.8,
-            emissive: 0x111111,
+            emissive: 0x222222,
         })
     );
     sphere.scale.set(70, 70, 70);
@@ -63,7 +63,7 @@ function enhanceMaterial(model) {
                 color: 0xffffff,
                 roughness: 0.2,
                 metalness: 0.8,
-                emissive: 0x111111,
+                emissive: 0x222222,
             });
         }
     });
@@ -107,13 +107,13 @@ ilandLoader.load('assets/3d/island.glb?v=123', function (gltf) {
     scene.add(ilandmodel);
 });
 
-const pointLight = new THREE.PointLight(0xffffff, 2);
+const pointLight = new THREE.PointLight(0xffffff, 5);
 pointLight.position.set(50, 50, 50);
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+const ambientLight = new THREE.AmbientLight(0xffffff, 2);
 scene.add(pointLight, ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
 directionalLight.position.set(10, 20, 10);
 scene.add(directionalLight);
 
