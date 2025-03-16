@@ -27,27 +27,35 @@ renderer.toneMappingExposure = 3;
 renderer.render(scene, camera);
 
 const realLoader = new RGBELoader();
-realLoader.load(hdrTextureURL, function (texture) {
-    if (!texture) {
-        console.error('Failed to load HDR texture.');
-        return;
-    }
-    texture.mapping = THREE.EquirectangularReflectionMapping;
-    scene.background = texture;
-    scene.environment = texture;
+realLoader.load(
+    hdrTextureURL,
+    function (texture) {
+        if (!texture) {
+            console.error('Failed to load HDR texture.');
+            return;
+        }
+        texture.mapping = THREE.EquirectangularReflectionMapping;
+        scene.background = texture;
+        scene.environment = texture;
 
-    const sphere = new THREE.Mesh(
-        new THREE.SphereGeometry(1, 50, 50),
-        new THREE.MeshStandardMaterial({
-            roughness: 0.2,
-            metalness: 0.8,
-            emissive: 0x222222,
-        })
-    );
-    sphere.scale.set(70, 70, 70);
-    sphere.position.z = 10;
-    scene.add(sphere);
-});
+        const sphere = new THREE.Mesh(
+            new THREE.SphereGeometry(1, 50, 50),
+            new THREE.MeshStandardMaterial({
+                roughness: 0.2,
+                metalness: 0.8,
+                emissive: 0x222222,
+            })
+        );
+        sphere.scale.set(70, 70, 70);
+        sphere.position.z = 10;
+        scene.add(sphere);
+    },
+    undefined, // Progress callback (optional)
+    function (error) {
+        console.error(`Error loading HDR texture: ${error.message}`);
+    }
+);
+
 
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
