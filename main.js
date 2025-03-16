@@ -27,6 +27,7 @@ renderer.toneMappingExposure = 3;
 renderer.render(scene, camera);
 
 const realLoader = new RGBELoader();
+realLoader.setDataType(THREE.FloatType); // Ensures float format for HDR textures
 realLoader.load(hdrTextureURL, function (texture) {
     if (!texture) {
         console.error('Failed to load HDR texture.');
@@ -47,7 +48,10 @@ realLoader.load(hdrTextureURL, function (texture) {
     sphere.scale.set(70, 70, 70);
     sphere.position.z = 10;
     scene.add(sphere);
+}, undefined, function (error) {
+    console.error('Error loading HDR texture:', error);
 });
+
 
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
