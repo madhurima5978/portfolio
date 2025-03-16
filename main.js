@@ -29,6 +29,7 @@ renderer.render(scene, camera);
 const realLoader = new RGBELoader();
 realLoader.setDataType(THREE.FloatType); // Ensures float format for HDR textures
 realLoader.load(hdrTextureURL, function (texture) {
+    console.log('HDR texture loaded successfully:', texture);
     if (!texture) {
         console.error('Failed to load HDR texture.');
         return;
@@ -120,6 +121,11 @@ ilandLoader.load('http://myportfoliobucket2843.s3-website.eu-north-1.amazonaws.c
     ilandmodel.position.z = -20;
     scene.add(ilandmodel);
 });
+
+pointLight.intensity = 20;  // Increase light intensity
+directionalLight.intensity = 10;
+ambientLight.intensity = 5;
+
 
 const pointLight = new THREE.PointLight(0xffffff, 5);
 pointLight.position.set(50, 50, 50);
