@@ -28,6 +28,10 @@ renderer.render(scene, camera);
 
 const realLoader = new RGBELoader();
 realLoader.load(hdrTextureURL, function (texture) {
+    if (!texture) {
+        console.error('Failed to load HDR texture.');
+        return;
+    }
     texture.mapping = THREE.EquirectangularReflectionMapping;
     scene.background = texture;
     scene.environment = texture;
@@ -72,6 +76,10 @@ function enhanceMaterial(model) {
 function loadModel(modelPath) {
     loader.load(modelPath, function (gltf) {
         const model = gltf.scene;
+        if (!model) {
+            console.error(`Model not found in ${modelPath}`);
+            return;
+        }
         enhanceMaterial(model);
         model.scale.set(0.1, 0.1, 0.1);
         model.position.set(-20, 20, 5);
@@ -89,21 +97,26 @@ function loadModel(modelPath) {
     });
 }
 
-const modelsToLoad = ['./assets/Stork.glb', './assets/IridescentDishWithOlives.glb'];
+const modelsToLoad = [
+    'http://myportfoliobucket2843.s3-website.eu-north-1.amazonaws.com/assets/Stork.glb',
+    'http://myportfoliobucket2843.s3-website.eu-north-1.amazonaws.com/assets/IridescentDishWithOlives.glb'
+];
 modelsToLoad.forEach((modelPath) => {
-    const fullModelPath = new URL(modelPath, import.meta.url).toString();
-    console.log('Loading model:', fullModelPath);
+    console.log('Loading model:', modelPath);
     loadModel(modelPath);
 });
 
 const ilandLoader = new GLTFLoader();
 ilandLoader.setDRACOLoader(dracoLoader);
-ilandLoader.load('./assets/3d/island.glb?v=123', function (gltf) {
+ilandLoader.load('http://myportfoliobucket2843.s3-website.eu-north-1.amazonaws.com/assets/3d/island.glb', function (gltf) {
     const ilandmodel = gltf.scene;
+    if (!ilandmodel) {
+        console.error('Failed to load island model.');
+        return;
+    }
     enhanceMaterial(ilandmodel);
     ilandmodel.scale.set(1, 1, 1);
     ilandmodel.position.z = -20;
-    ilandmodel.rotation.y += 0.005;
     scene.add(ilandmodel);
 });
 
@@ -136,7 +149,11 @@ document.addEventListener('scroll', moveCamera);
 
 document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('scroll', () => {
-        scene.style.transform = `translateY(${scrollY}px)`;
+        scene.traverse((child) => {
+            if (child.isMesh) {
+                child.position.y = scrollY * 0.01;
+            }
+        });
     });
 });
 
