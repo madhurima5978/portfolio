@@ -10,7 +10,7 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 
 const mouse = new THREE.Vector2();
-const hdrTextureURL = new URL('/assets/kloofendal_28d_misty_puresky_8k.hdr', import.meta.url);
+const hdrTextureURL = new URL('http://myportfoliobucket2843.s3-website.eu-north-1.amazonaws.com/assets/kloofendal_28d_misty_puresky_8k-1560fa2b.hdr', import.meta.url);
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({
