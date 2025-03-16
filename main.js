@@ -10,7 +10,7 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 
 const mouse = new THREE.Vector2();
-const hdrTextureURL = new URL('assets/kloofendal_28d_misty_puresky_8k.hdr', import.meta.url);
+const hdrTextureURL = new URL('./assets/kloofendal_28d_misty_puresky_8k.hdr', import.meta.url);
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({
@@ -85,11 +85,11 @@ function loadModel(modelPath) {
             mixers.push(mixer);
         }
     }, undefined, function (error) {
-        console.error(error);
+        console.error(`Failed to load model at ${modelPath}:`, error);
     });
 }
 
-const modelsToLoad = ['assets/Stork.glb', 'assets/IridescentDishWithOlives.glb'];
+const modelsToLoad = ['./assets/Stork.glb', './assets/IridescentDishWithOlives.glb'];
 modelsToLoad.forEach((modelPath) => {
     const fullModelPath = new URL(modelPath, import.meta.url).toString();
     console.log('Loading model:', fullModelPath);
@@ -98,7 +98,7 @@ modelsToLoad.forEach((modelPath) => {
 
 const ilandLoader = new GLTFLoader();
 ilandLoader.setDRACOLoader(dracoLoader);
-ilandLoader.load('assets/3d/island.glb?v=123', function (gltf) {
+ilandLoader.load('./assets/3d/island.glb?v=123', function (gltf) {
     const ilandmodel = gltf.scene;
     enhanceMaterial(ilandmodel);
     ilandmodel.scale.set(1, 1, 1);
