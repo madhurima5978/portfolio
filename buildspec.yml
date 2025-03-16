@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - npm ci  # Ensures dependencies are installed correctly
+  build:
+    commands:
+      - npm run build  # Builds your Vite project
+artifacts:
+  files:
+    - '**/*'
+  base-directory: dist  # Ensure this matches your vite.config.js output
