@@ -97,7 +97,7 @@ function loadModel(modelPath) {
     });
 }
 
-const modelsToLoad = ['/assets/Stork.glb', '/assets/IridescentDishWithOlives.glb'];
+const modelsToLoad = ['http://myportfoliobucket2843.s3-website.eu-north-1.amazonaws.com/assets/Stork.glb', 'http://myportfoliobucket2843.s3-website.eu-north-1.amazonaws.com/assets/IridescentDishWithOlives.glb'];
 modelsToLoad.forEach((modelPath) => {
     console.log('Loading model:', modelPath);
     loadModel(modelPath);
@@ -105,7 +105,7 @@ modelsToLoad.forEach((modelPath) => {
 
 const ilandLoader = new GLTFLoader();
 ilandLoader.setDRACOLoader(dracoLoader);
-ilandLoader.load('/assets/3d/island.glb?v=123', function (gltf) {
+ilandLoader.load('http://myportfoliobucket2843.s3-website.eu-north-1.amazonaws.com/assets/3d/island.glb?v=123', function (gltf) {
     const ilandmodel = gltf.scene;
     if (!ilandmodel) {
         console.error('Failed to load island model.');
